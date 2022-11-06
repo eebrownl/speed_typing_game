@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [typedText, setTypedText] = React.useState('')
+  const [timeRemaining, setTimeRemaining] = React.useState(100)
+
+  function handleChange(e) {
+    setTypedText(e.target.value)
+  }
+
+  function countWords(str) {
+    const arr = typedText.trim().split(' ');
+    const filteredWords = arr.filter(word => word !== '')
+    console.log(filteredWords.length) 
+  }
+
+  useEffect(() => {
+    if(timeRemaining > 0 ) {
+      setTimeout(() => {
+        setTimeRemaining(time => time - 1)
+    }, 1000)
+    }
+}, [timeRemaining])
+
+  return(
+    <div>
+      <h1>The Keys Are Lava &#127755;</h1>
+      <textarea 
+        name='typing-area'
+        value={typedText}
+        onChange={handleChange}/>
+      <h4>Time Remaining: {timeRemaining}</h4>
+      <button onClick={countWords}>Start</button>
+      <h1>Word Count:</h1>
     </div>
-  );
+  )
 }
 
 export default App;
