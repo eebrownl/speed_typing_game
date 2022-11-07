@@ -7,6 +7,7 @@ const STARTING_TIME = 2
   const [timeRemaining, setTimeRemaining] = React.useState(STARTING_TIME)
   const [gameStarted, setGameStarted] = React.useState(false)
   const [wordCount, setWordCount] = React.useState(0)
+  const textareaRef = React.useRef(null)
   
 
   function handleChange(e) {
@@ -24,6 +25,8 @@ const STARTING_TIME = 2
     setWordCount(0)
     setTimeRemaining(STARTING_TIME)
     setTypedText('')
+    textareaRef.current.disabled = false
+    textareaRef.current.focus()
   }
 
   function endGame() {
@@ -48,7 +51,9 @@ const STARTING_TIME = 2
         name='typing-area'
         value={typedText}
         onChange={handleChange}
-        disabled = {!gameStarted}/>
+        disabled = {!gameStarted}
+        ref = {textareaRef}
+        />
       <h4>Time Remaining: {timeRemaining}</h4>
       <button onClick={startGame} disabled = {gameStarted}>Start</button>
       <h1>Word Count:{wordCount}</h1>
