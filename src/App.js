@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 function App() {
-const STARTING_TIME = 2
+const STARTING_TIME = 20
 
   const [typedText, setTypedText] = React.useState('')
   const [timeRemaining, setTimeRemaining] = React.useState(STARTING_TIME)
