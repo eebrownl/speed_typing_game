@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 
 function App() {
   const [typedText, setTypedText] = React.useState('')
-  const [timeRemaining, setTimeRemaining] = React.useState(100)
+  const [timeRemaining, setTimeRemaining] = React.useState(5)
+  const [gameStarted, setGameStarted] = React.useState(false)
 
   function handleChange(e) {
     setTypedText(e.target.value)
@@ -14,13 +15,19 @@ function App() {
     console.log(filteredWords.length) 
   }
 
+  function startGame() {
+    setGameStarted(true)
+  }
+
   useEffect(() => {
-    if(timeRemaining > 0 ) {
+    if(timeRemaining > 0 && gameStarted) {
       setTimeout(() => {
         setTimeRemaining(time => time - 1)
     }, 1000)
+    } else if(timeRemaining === 0) {
+      setGameStarted(false)
     }
-}, [timeRemaining])
+}, [timeRemaining, gameStarted])
 
   return(
     <div>
@@ -30,7 +37,7 @@ function App() {
         value={typedText}
         onChange={handleChange}/>
       <h4>Time Remaining: {timeRemaining}</h4>
-      <button onClick={countWords}>Start</button>
+      <button onClick={startGame}>Start</button>
       <h1>Word Count:</h1>
     </div>
   )
